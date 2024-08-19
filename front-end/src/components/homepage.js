@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from '../styles/homepage.module.css'
-import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 
 const Homepage = () => {
@@ -8,21 +7,20 @@ const Homepage = () => {
 
     const [inputCount, setInputCount] = useState(0);
     const [msgUpdate, setMsgUpdate] = useState('')
-    const [loading, setLoading] = useState(false);
 
     function addInputWithValues() {
         const inputGroup = document.querySelector('.inp-group');
 
         const div_ = document.createElement('div');
 
-        const option1 = document.createElement('p');
-        option1.innerText = 'URL';
+        const urlNum = document.createElement('p');
+        urlNum.innerText = `URL`;
 
-        div_.appendChild(option1);
+        div_.appendChild(urlNum);
 
         const name = document.createElement('input');
         name.type = "text";
-        name.placeholder = "Enter name";
+        name.placeholder = "Enter URL";
         name.value = '';
 
         const btnDelete = document.createElement('a');
@@ -51,37 +49,18 @@ const Homepage = () => {
 
         inputGroup.querySelectorAll('.flex').forEach(flex => {
             const url = flex.querySelector('input').value;
-            urls.push(url);
+            if(url !== ''){
+                urls.push(url);
+            }
         });
 
-        let filteredUrls = urls.filter(url => url); //remove empty urls
-
-        if (filteredUrls.length < 1) {
+        if (urls.length < 1) {
             setMsgUpdate('There should be at least 3 URLs given');
             setTimeout(() => setMsgUpdate(''), 5000);
             return;
         }
 
-        setLoading(true);
-
-        try {
-            await axios.post(`http://localhost:5555/url/metadata`, { urls: filteredUrls }).then(res => {
-                if (res.status === 200) {
-                    navigate('/FetchedData', { state: { data: res.data } });
-                } else {
-                    console.error('Error retreiving data');
-                    setMsgUpdate('Error retreiving data')
-                    setTimeout(() => setMsgUpdate(''), 5000);
-                }
-            })
-
-        } catch (error) {
-            console.error('Network error:', error);
-            setMsgUpdate("Error occured")
-            setTimeout(() => setMsgUpdate(''), 5000);
-        } finally {
-            setLoading(false);
-        }
+        navigate('/FetchedData', { state: { urls: urls } });
     }
 
     return (
@@ -94,12 +73,6 @@ const Homepage = () => {
 
             </div>
             {msgUpdate && <div className={styles.centerdiv}><p className={styles.errormessage}>{msgUpdate}</p></div>}
-            {loading && (
-                <div className={styles.loaderContainer}>
-                    <div className={styles.loader}></div>
-                    <p className={styles.fetchingText}>Fetching data, please wait</p>
-                </div>
-            )}
 
             {inputCount > 0 &&
                 <div className={styles.centerdiv}>

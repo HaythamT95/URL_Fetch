@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
-import controllerOrder from "./controller/appController.js"
+import controllerRoute from "./controller/appController.js"
 import { globalLimiter, session_ } from "./utils/security.js"
 import logger from "./utils/logger.js";
 
@@ -15,7 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-app.use('/url', controllerOrder)
+app.use('/url', controllerRoute)
 
 app.listen(process.env.PORT, () => {
 	logger.info(`Running on port ${process.env.PORT}`)

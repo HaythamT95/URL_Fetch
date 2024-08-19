@@ -1,29 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../styles/fetched_data.module.css';
 import { useLocation } from 'react-router-dom';
 
 const FetchedData = () => {
     const { state } = useLocation();
-    const data = state?.data || [];
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams({
+            urls: JSON.stringify(state?.urls || [])
+        });
+
+        const eventSource = new EventSource(`http://localhost:5555/url/metadata?${queryParams.toString()}`);
+    
+        eventSource.onmessage = (event) => {
+            const newData = JSON.parse(event.data);
+            setData((prevData) => [...prevData, newData]);
+        };
+    
+        eventSource.onerror = (error) => {
+            setLoading(false);
+            eventSource.close(); 
+        };
+    
+        return () => {
+            eventSource.close(); 
+        };
+    }, [state?.urls]);
 
     return (
         <div className={styles.container}>
-        {data.map((item, index) => (
-            <div key={index} className={styles.item}>
-                <div className={styles.title}>
-                    {item.title ? item.title : 'Title is not available'}
+            {loading && (
+                <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
+                    <p className={styles.fetchingText}>Fetching data, please wait</p>
                 </div>
-                <div className={styles.description}>
-                    {item.description ? item.description : 'Description is not available'}
+            )}
+            {data.length > 0 && data.map((item, index) => (
+                <div key={index} className={styles.item}>
+                    <div className={styles.title}>
+                        {item.title ? item.title : 'Title is not available'}
+                    </div>
+                    <div className={styles.description}>
+                        {item.description ? item.description : 'Description is not available'}
+                    </div>
+                    {item.image ? (
+                        <img src={item.image} alt={item.title || 'Image'} className={styles.image} />
+                    ) : (
+                        <p>No image available</p>
+                    )}
                 </div>
-                {item.image ? (
-                    <img src={item.image} alt={item.title || 'Image'} className={styles.image} />
-                ) : (
-                    <p>No image available</p>
-                )}
-            </div>
-        ))}
-    </div>
+            ))}
+        </div>
     );
 }
 

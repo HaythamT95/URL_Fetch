@@ -1,0 +1,19 @@
+{
+    "name": "tests",
+    "type": "module",
+    "version": "1.0.0",
+    "scripts": {
+        "server": "mocha server/server.test.js --timeout 10000",
+        "test": "jest"
+    },
+    "dependencies": {
+        "axios": "^0.21.1",
+        "chai": "^4.3.4",
+        "jest": "^29.7.0",
+        "mocha": "^8.3.2"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "^6.4.8",
+        "@testing-library/react": "^16.0.0"
+    }
+}
