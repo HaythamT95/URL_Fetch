@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../styles/homepage.module.css'
+import styles from '../styles/homepage.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const Homepage = () => {
@@ -54,7 +54,7 @@ const Homepage = () => {
             }
         });
 
-        if (urls.length < 1) {
+        if (urls.length < 3) {
             setMsgUpdate('There should be at least 3 URLs given');
             setTimeout(() => setMsgUpdate(''), 5000);
             return;

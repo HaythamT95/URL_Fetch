@@ -3,9 +3,9 @@ import expressXssSanitizer from "express-xss-sanitizer";
 import { getMetaData } from "../service/metadataService.js";
 import logger from "../utils/logger.js";
 
-const controllerRoute = express.Router();
+const metadataRoute = express.Router();
 
-controllerRoute.get('/metadata', async (req, res) => {
+metadataRoute.get('/metadata', async (req, res) => {
 
     logger.info(`${req.method}-${req.originalUrl}`)
 
@@ -44,4 +44,4 @@ controllerRoute.get('/metadata', async (req, res) => {
 });
 
 
-export default controllerRoute;
+export default metadataRoute;
