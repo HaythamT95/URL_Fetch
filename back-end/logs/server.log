@@ -18,3 +18,8 @@
 2024-08-19T11:19:12.568Z [server-app] info: Running on port 5555
 2024-08-19T11:19:42.449Z [server-app] info: Running on port 5555
 2024-08-19T11:20:00.141Z [server-app] info: Running on port 5555
+2024-08-19T11:20:28.529Z [server-app] info: Running on port 5555
+2024-08-19T11:20:48.760Z [server-app] info: POST-/url/metadata
+2024-08-19T11:20:48.763Z [server-app] info: Called getMetaData
+2024-08-19T11:20:49.678Z [server-app] info: Returning from getMetaData
+2024-08-19T11:20:49.679Z [server-app] info: Retreived data - [object Object]
