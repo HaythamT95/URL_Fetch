@@ -20,3 +20,13 @@ app.use('/url', metadataRoute)
 app.listen(process.env.PORT, () => {
 	logger.info(`Running on port ${process.env.PORT}`)
 })
+
+app.get('/favicon.ico', function(req, res) { 
+    res.status(204);
+    res.end();    
+});
+
+app.get('/', function(req, res) { 
+    res.status(204);
+    res.end();    
+});
