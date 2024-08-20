@@ -51,12 +51,12 @@ describe('Backend API Tests', function () {
         this.timeout(10000)
         const encodedUrls = encodeURIComponent(JSON.stringify(invalidUrls));
 
-        try{
+        try {
             await axios.get(`${apiUrl}?urls=${encodedUrls}`, {
                 headers: { 'Accept': 'text/event-stream' }
             });
         }
-        catch(error){
+        catch (error) {
             expect(error.response.data).to.have.property('error').that.includes('Failed to retrieve metadata');
         }
     });
