@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/fetched_data.module.css';
 import { useLocation } from 'react-router-dom';
-import dotenv from "dotenv"
-
-dotenv.config()
 
 const FetchedData = () => {
     const { state } = useLocation();
@@ -15,7 +12,7 @@ const FetchedData = () => {
             urls: JSON.stringify(state?.urls || [])
         });
 
-        const eventSource = new EventSource(`${process.env.SERVER_URL}?${queryParams.toString()}`);
+        const eventSource = new EventSource(`https://url-fetch-server.vercel.app/?${queryParams.toString()}`);
     
         eventSource.onmessage = (event) => {
             const newData = JSON.parse(event.data);
