@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/fetched_data.module.css';
 import { useLocation } from 'react-router-dom';
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const FetchedData = () => {
     const { state } = useLocation();
@@ -12,7 +15,7 @@ const FetchedData = () => {
             urls: JSON.stringify(state?.urls || [])
         });
 
-        const eventSource = new EventSource(`http://localhost:5555/url/metadata?${queryParams.toString()}`);
+        const eventSource = new EventSource(`${process.env.SERVER_URL}?${queryParams.toString()}`);
     
         eventSource.onmessage = (event) => {
             const newData = JSON.parse(event.data);
