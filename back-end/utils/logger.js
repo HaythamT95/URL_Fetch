@@ -14,8 +14,10 @@ const logger = createLogger({
     ),
     transports: [
         new transports.Console(),
-        new transports.File({ filename: 'logs/server.log' })
-    ]
+        ...(process.env.NODE_ENV !== 'production'
+            ? [new transports.File({ filename: 'logs/server.log' })]
+            : [])
+        ]
 });
 
 export default logger;
