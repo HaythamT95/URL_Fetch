@@ -150,3 +150,9 @@ p {
     font-size: 1em;
     color: #555;
 }
+
+.instructions {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0;
+}

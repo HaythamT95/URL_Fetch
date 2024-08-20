@@ -12,7 +12,7 @@ const FetchedData = () => {
             urls: JSON.stringify(state?.urls || [])
         });
 
-        const eventSource = new EventSource(`https://url-fetch-server.vercel.app/?${queryParams.toString()}`);
+        const eventSource = new EventSource(`https://url-fetch-server.vercel.app/url/metadata?${queryParams.toString()}`);
     
         eventSource.onmessage = (event) => {
             const newData = JSON.parse(event.data);

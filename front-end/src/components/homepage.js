@@ -49,7 +49,7 @@ const Homepage = () => {
 
         inputGroup.querySelectorAll('.flex').forEach(flex => {
             const url = flex.querySelector('input').value;
-            if(url !== ''){
+            if (url !== '') {
                 urls.push(url);
             }
         });
@@ -65,8 +65,14 @@ const Homepage = () => {
 
     return (
         <div className={styles.container}>
+            <p className={styles.instructions}>
+                    Please enter the URLs you want to fetch metadata for. Click on the "+" button to add more input fields.
+                    Once you have entered the URLs, click the "Submit" button to fetch and view the metadata for each URL.
+                    The metadata includes the title, description, and image of each webpage.
+                </p>
             <div className={styles.wrap}>
-                <h1>URLs</h1>
+                <h1>Enter URLs</h1>
+                
                 <a href="#" className={styles.add} onClick={addInputWithValues}>&#43;</a>
             </div>
             <div className='inp-group'>
