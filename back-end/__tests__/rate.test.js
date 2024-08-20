@@ -1,9 +1,11 @@
 import chai from 'chai';
 import axios from "axios"
+import dotenv from "dotenv"
 
+dotenv.config()
 const { expect } = chai;
 
-const apiUrl = 'http://localhost:5555/url/metadata';
+const apiUrl = `http://localhost:${process.env.PORT}/url/metadata`;
 
 const validUrls = ["www.google.com", "www.youtube.com", "www.meta.com"]
 
